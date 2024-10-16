@@ -48,7 +48,6 @@ pipeline {
                     '''
                 }
             }
-
             post {
             always {
                 echo 'Zapisawanie wyniku do  results...'
