@@ -38,18 +38,18 @@ pipeline {
                         "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive.yaml" \
                         || true 
                 '''
-                sh '''
-                    echo "Checking if report files exist in the container..."
-                    docker ps -a
-                    docker logs zap || true
-                    docker exec zap ls -la /zap/wrk/reports/
-                '''
+                // sh '''
+                //     echo "Checking if report files exist in the container..."
+                //     docker ps -a
+                //     docker logs zap || true
+                //     docker exec zap ls -la /zap/wrk/reports/
+                // '''
             }
             post {
                 always {
                     sh '''
-                        docker cp zap:/zap/wrk/reports/zap_html_report.html "${WORKSPACE}/results/zap_html_report.html"
-                        docker cp zap:/zap/wrk/reports/zap_xml_report.xml "${WORKSPACE}/results/zap_xml_report.xml"
+                        docker cp zap:/zap/wrk/reports/zap_html_report.html ${WORKSPACE}/results/zap_html_report.html
+                        docker cp zap:/zap/wrk/reports/zap_xml_report.xml ${WORKSPACE}/results/zap_xml_report.xml
                         docker stop zap juice-shop || true
                         docker rm zap || true
                     '''
