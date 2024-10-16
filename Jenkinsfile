@@ -37,12 +37,6 @@ pipeline {
                         "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive.yaml" \
                         || true 
                 '''
-                // sh '''
-                //     echo "Checking if report files exist in the container..."
-                //     docker ps -a
-                //     docker logs zap || true
-                //     docker exec zap ls -la /zap/wrk/reports/
-                // '''
             }
             post {
                 always {
