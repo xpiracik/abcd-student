@@ -37,6 +37,7 @@ pipeline {
                         -t ghcr.io/zaproxy/zaproxy:stable bash -c \
                         "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive_scan.yaml" \
                         || true
+                    sleep 60    
                 '''
                 sh '''
                     echo "Checking if report files exist in the container..."
