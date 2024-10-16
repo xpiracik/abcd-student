@@ -48,17 +48,6 @@ pipeline {
                     '''
                 }
             }
-            post {
-                always {
-                    echo 'Zapisawanie wyniku do  results...'
-                    archiveArtifacts  artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
-                    // echo 'Wysyłanie raportu do DefectDojo ...'                
-                    // defectDojoPublisher(artifact: 'results/sca-osv-scanner.json', 
-                    //     productName: 'Juice Shop', 
-                    //     scanType: 'OSV Scan', 
-                    //     engagementName: 'mariusz.klys@symfonia.pl')
-                }
-            }
         }
     }
 }
