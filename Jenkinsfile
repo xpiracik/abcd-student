@@ -55,9 +55,9 @@ pipeline {
             echo 'Zapisawanie wyniku do  results...'
             archiveArtifacts  artifacts: 'results/**/*', fingerprint: true, allowEmptyArchive: true
             echo 'Wysyłanie raportu do DefectDojo ...'                
-            defectDojoPublisher(artifact: 'results/sca-osv-scanner.json', 
+            defectDojoPublisher(artifact: 'results/zap_xml_report.xml', 
                 productName: 'Juice Shop', 
-                scanType: 'OSV Scan', 
+                scanType: 'ZAP Scan', 
                 engagementName: 'mariusz.klys@symfonia.pl')
         }
     }   
