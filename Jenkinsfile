@@ -40,6 +40,8 @@ pipeline {
                 '''
                 sh '''
                     echo "Checking if report files exist in the container..."
+                    docker ps -a
+                    docker logs zap || true
                     docker exec zap ls -la /zap/wrk/reports/
                 '''
             }
