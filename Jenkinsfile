@@ -12,15 +12,15 @@ pipeline {
                 }
             }
         }
-        stage('Example') {
+    stages {
+        stage('Przygotowanie') {
             steps {
-                echo 'Hello! Tu Mariusz'
-                sh 'ls -la'
+                
+                sh 'mkdir -p results/'
             }
         }
-        stage('[ZAP] Baseline passive-scan') {
+        stage('Skan Pasywny') {
             steps {
-                sh 'mkdir -p results/'
                 sh '''
                     docker run --name juice-shop -d --rm \
                         -p 3000:3000 \
@@ -30,7 +30,7 @@ pipeline {
                 sh '''
                     docker run --name zap \
                         --add-host=host.docker.internal:host-gateway \
-                        -v /path/to/dir/with/passive/scan/yaml:/zap/wrk/:rw
+                        -v /c/DEV/SzkolenieABC/abcd-lab/resources/DAST/zap/passive_scan.yaml:/zap/wrk/passive_scan.yaml:rw \
                         -t ghcr.io/zaproxy/zaproxy:stable bash -c \
                         "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive_scan.yaml" \
                         || true
@@ -47,6 +47,5 @@ pipeline {
                 }
             }
         }
-
     }
 }
