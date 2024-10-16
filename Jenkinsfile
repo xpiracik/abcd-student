@@ -21,12 +21,16 @@ pipeline {
         stage('Skan Pasywny') {
             steps {
                 sh '''
+                    docker stop juice-shop || true
+                    docker rm juice-shop || true               
                     docker run --name juice-shop -d --rm \
                         -p 3000:3000 \
                         bkimminich/juice-shop
                     sleep 5
                 '''
                 sh '''
+                    docker stop zap || true
+                    docker rm zap || true
                     docker run --name zap \
                         --add-host=host.docker.internal:host-gateway \
                         -v /c/DEV/SzkolenieABC/abcd-lab/resources/DAST/zap/passive_scan.yaml:/zap/wrk/passive_scan.yaml:rw \
@@ -40,8 +44,8 @@ pipeline {
                     sh '''
                         docker cp zap:/zap/wrk/reports/zap_html_report.html "${WORKSPACE}/results/zap_html_report.html"
                         docker cp zap:/zap/wrk/reports/zap_xml_report.xml "${WORKSPACE}/results/zap_xml_report.xml"
-                        docker stop zap juice-shop
-                        docker rm zap
+                        docker stop zap juice-shop || true
+                        docker rm zap || true
                     '''
                 }
             }
