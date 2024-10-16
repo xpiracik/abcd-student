@@ -33,7 +33,7 @@ pipeline {
                     docker rm zap || true
                     docker run --name zap \
                         --add-host=host.docker.internal:host-gateway \
-                        -v /c/DEV/SzkolenieABC/abcd-lab/resources/DAST/zap/passive_scan.yaml:/zap/wrk/passive_scan.yaml:rw \
+                        -v /c/DEV/SzkolenieABC/abcd-student/.zap/wrk/passive_scan.yaml:rw \
                         -t ghcr.io/zaproxy/zaproxy:stable bash -c \
                         "zap.sh -cmd -addonupdate; zap.sh -cmd -addoninstall communityScripts -addoninstall pscanrulesAlpha -addoninstall pscanrulesBeta -autorun /zap/wrk/passive_scan.yaml" \
                         || true
